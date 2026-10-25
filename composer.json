@@ -1,0 +1,62 @@
+{
+    "name": "atannex/scopable",
+    "description": "Declarative state and date scopes for Laravel Eloquent: published / scheduled / draft, active flags, schedule windows, expiry, highlights, limits and composites, with matching PHP checks, mutators, period scopes (createdThisWeek, publishedWithin), default states and transition events.",
+    "keywords": [
+        "laravel",
+        "eloquent",
+        "scopes",
+        "query-scopes",
+        "publishable",
+        "schedule",
+        "expiry",
+        "soft-states"
+    ],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Atanga Leke Collins",
+            "email": "atangageihlekecollins@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "illuminate/console": "^11.0|^12.0",
+        "illuminate/database": "^11.0|^12.0",
+        "illuminate/events": "^11.0|^12.0",
+        "illuminate/support": "^11.0|^12.0",
+        "nesbot/carbon": "^3.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^9.0|^10.0",
+        "phpunit/phpunit": "^11.5"
+    },
+    "suggest": {
+        "filament/filament": "For Atannex\\Scopable\\Filament\\StateFilter (^4.0)."
+    },
+    "autoload": {
+        "psr-4": {
+            "Atannex\\Scopable\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Atannex\\Scopable\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Atannex\\Scopable\\ScopableServiceProvider"
+            ]
+        }
+    },
+    "scripts": {
+        "test": "phpunit"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
