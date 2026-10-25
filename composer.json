@@ -49,6 +49,9 @@
             "providers": [
                 "Atannex\\Scopable\\ScopableServiceProvider"
             ]
+        },
+        "branch-alias": {
+            "dev-main": "1.x-dev"
         }
     },
     "scripts": {
