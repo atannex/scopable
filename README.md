@@ -7,11 +7,3 @@ Gives Laravel models ready-made states and date filters. You declare once what p
 ```bash
 composer require atannex/scopable
 ```
-
-## Documentation
-
-The full guide is in [docs/README.md](docs/README.md).
-
-## License
-
-MIT.
