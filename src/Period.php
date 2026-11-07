@@ -160,6 +160,23 @@ final readonly class Period
         return new self($start, $end, endInclusive: true, label: 'between '.$start->toDateTimeString().' and '.$end->toDateTimeString());
     }
 
+    /**
+     * Whole calendar days from a "from" and an "until" date (a date range
+     * picker's values; a time part is dropped). Either end may be empty;
+     * null when both are, so the caller can skip the constraint.
+     */
+    public static function days(mixed $from, mixed $until): ?self
+    {
+        $day = static fn (mixed $value): string => Clock::parse($value, Clock::calendarTimezone())->toDateString();
+
+        return match (true) {
+            filled($from) && filled($until) => self::between($day($from), $day($until)),
+            filled($from) => self::since(Clock::parse($day($from), Clock::calendarTimezone())->startOfDay()),
+            filled($until) => self::before(Clock::parse($day($until), Clock::calendarTimezone())->startOfDay()->addDay()),
+            default => null,
+        };
+    }
+
     /** Strictly after. */
     public static function after(mixed $date): self
     {

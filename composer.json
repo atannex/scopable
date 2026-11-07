@@ -31,9 +31,6 @@
         "orchestra/testbench": "^9.0|^10.0|^11.0",
         "phpunit/phpunit": "^11.5|^12.0"
     },
-    "suggest": {
-        "filament/filament": "For Atannex\\Scopable\\Filament\\StateFilter (^4.0)."
-    },
     "autoload": {
         "psr-4": {
             "Atannex\\Scopable\\": "src/"

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Atannex\Scopable\Tests\Feature;
 
-use Atannex\Scopable\Filament\PeriodFilter;
 use Atannex\Scopable\Period;
 use Atannex\Scopable\Tests\Fixtures\Article;
 use Atannex\Scopable\Tests\Fixtures\Reply;
@@ -51,13 +50,13 @@ final class ExtensionTest extends TestCase
         $this->assertSame(0, Period::constrain($plain->newQuery(), 'articles.created_at', 'yesterday')->count());
     }
 
-    public function test_the_period_filter_covers_whole_days(): void
+    public function test_days_cover_whole_calendar_days(): void
     {
         foreach (['2026-06-10 00:00:00', '2026-06-12 23:59:59', '2026-06-13 00:00:00'] as $i => $at) {
             Article::create(['title' => "a{$i}"])->forceFill(['created_at' => $at])->saveQuietly();
         }
 
-        $titles = fn ($from, $until) => PeriodFilter::apply(Article::query(), 'created', $from, $until)->pluck('title')->all();
+        $titles = fn ($from, $until) => (($period = Period::days($from, $until)) ? Period::constrain(Article::query(), 'created', $period) : Article::query())->pluck('title')->all();
 
         $this->assertSame(['a0', 'a1'], $titles('2026-06-10', '2026-06-12'));
         $this->assertSame(['a1', 'a2'], $titles('2026-06-11', null));
@@ -111,7 +110,7 @@ final class ExtensionTest extends TestCase
         $make('after', '2026-06-20 00:00:00', null);
         $make('endsOnStart', '2026-06-01 00:00:00', '2026-06-10 00:00:00');
 
-        $names = fn (?string $from, ?string $until) => PeriodFilter::period($from, $until)
+        $names = fn (?string $from, ?string $until) => Period::days($from, $until)
             ->applyOverlap(Reply::query(), 'starts_at', 'ends_at')
             ->orderBy('id')->get()->pluck('status')->all();
 
